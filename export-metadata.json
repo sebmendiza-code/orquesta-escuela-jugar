@@ -1,0 +1,16 @@
+{
+  "name": "Orquesta Escuela de Florencio Varela",
+  "revisionLabel": "Bilingüe español e inglés",
+  "description": "Juego musical 2D para Android, titulado Orquesta Escuela de Florencio Varela. Los jugadores participan en desafíos musicales inspirados en una orquesta escuela, con personajes animados de ejemplo que luego podrán reemplazarse por caricaturas basadas en fotos de alumnos, profesores y directores reales. El tono es simpático, expresivo y colorido; los escenarios incluyen ensayos, aulas y grandes conciertos.",
+  "mode": "Universal",
+  "exportDate": "2026-11-11T18:41:46.079Z",
+  "rosebudBuiltInSplash": {
+    "present": true,
+    "version": 1
+  },
+  "assetCount": 157,
+  "assetTypes": [
+    "image",
+    "audio"
+  ]
+}

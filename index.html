@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <title>Orquesta Escuela: Una aventura musical</title>
+    <meta name="application-name" content="Orquesta Escuela" />
+    <meta name="theme-color" content="#11132b" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="./app-icon.svg" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@instantdb/core": "https://esm.sh/@instantdb/core@0.22.155",
+          "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2"
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@800;900&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!--
+      Rosebud defaults disable accidental selection, context menus, tap highlights,
+      and native dragging during gameplay while preserving text editing. Most games
+      need no customization.
+    -->
+    <link rel="stylesheet" href="./rosebud-game-defaults.css" />
+    <script src="./rosebud-game-defaults.js" defer></script>
+    <style>
+      html, body, #game-container { width: 100%; height: 100%; height: 100dvh; margin: 0; padding: 0; background: #11132b; overflow: hidden; }
+      body { touch-action: none; overscroll-behavior: none; font-family: 'Nunito', 'Outfit', sans-serif; font-weight: 800; }
+      canvas { display: block; touch-action: none; }
+      @media (orientation: landscape) {
+        #game-container {
+          --welcome-landscape-fox-left: 0.018;
+          --welcome-landscape-fox-max-width: 0.22;
+          --welcome-landscape-fox-bottom: 0.015;
+        }
+      }
+    </style>
+  
+<style>
+    #rosebud-exported-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000;
+        opacity: 1;
+        transition: opacity 500ms ease-in-out;
+    }
+
+    #rosebud-exported-splash.is-hiding {
+        opacity: 0;
+    }
+
+    #rosebud-exported-splash .rosebud-exported-splash__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+        color: #fff;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    #rosebud-exported-splash .rosebud-exported-splash__logo {
+        width: 100px;
+        height: 100px;
+        animation: rosebud-exported-splash-breathe 2.4s ease-in-out infinite;
+    }
+
+    #rosebud-exported-splash .rosebud-exported-splash__text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 16px;
+        line-height: 1.25;
+        letter-spacing: 0.06em;
+    }
+
+    #rosebud-exported-splash .rosebud-exported-splash__text strong {
+        font-weight: 700;
+    }
+
+    #rosebud-exported-splash .rosebud-exported-splash__text span:last-child {
+        opacity: 0.88;
+    }
+
+    @keyframes rosebud-exported-splash-breathe {
+        0%,
+        100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+</style></head>
+  <body>
+<div id="rosebud-exported-splash" aria-live="polite">
+    <div class="rosebud-exported-splash__content">
+        <img
+            class="rosebud-exported-splash__logo"
+            src="__rosebud/rosebud-icon.png"
+            alt="Rosebud Logo"
+            width="100"
+            height="100"
+        />
+        <div class="rosebud-exported-splash__text" aria-label="Rosebud.AI Make Games">
+            <strong>Rosebud.AI</strong>
+            <span>Make Games</span>
+        </div>
+    </div>
+</div>
+    <div id="game-container"></div>
+    <script type="module" src="./main.js"></script>
+    <script>
+      // Control de arranque: si main.js no llegó a iniciar (módulo faltante o error de carga),
+      // se muestra un aviso con opción de reintentar en lugar de una pantalla negra.
+      setTimeout(function () {
+        if (window.__oefvBooted) return;
+        var box = document.createElement('div');
+        box.setAttribute('role', 'alert');
+        box.style.cssText = 'position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;background:#11132b;color:#fff;font:700 15px Nunito,sans-serif;text-align:center;';
+        box.innerHTML = '<div style="font-size:20px;color:#FFD52B">🎻 No se pudo iniciar el juego</div><div style="font-size:13px;color:#cfd6ff;max-width:480px">Revisá tu conexión e intentá de nuevo. Tu progreso guardado en este dispositivo no se modificó.</div>';
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = '↻ Reintentar';
+        btn.style.cssText = 'min-width:200px;min-height:48px;border:0;border-radius:14px;background:#22a879;color:#fff;font:800 15px Nunito,sans-serif;';
+        btn.onclick = function () { location.reload(); };
+        box.appendChild(btn);
+        document.body.appendChild(box);
+        console.error('[arranque] main.js no se inició en 12 segundos.');
+      }, 12000);
+    </script>
+    <script type="module" src="./pwa.js"></script>
+    <!-- ROSEBUD-DEV-ONLY:START — utilidades exclusivas de la vista previa de desarrollo.
+         ELIMINAR este bloque en cualquier versión publicada/producción. -->
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ChatManager.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ProgressLogger.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/OGP.js"></script>
+    <!-- ROSEBUD-DEV-ONLY:END -->
+  
+<script>
+    (() => {
+        const splashRoot = document.getElementById('rosebud-exported-splash');
+        if (!splashRoot) return;
+
+        let isReady = false;
+        let isMinimumVisibleTimeElapsed = false;
+        let isHidden = false;
+
+        const maybeHideSplash = () => {
+            if (isHidden || !isReady || !isMinimumVisibleTimeElapsed) return;
+
+            isHidden = true;
+            splashRoot.classList.add('is-hiding');
+            window.setTimeout(() => splashRoot.remove(), 500);
+        };
+
+        const markReady = () => {
+            isReady = true;
+            maybeHideSplash();
+        };
+
+        window.setTimeout(() => {
+            isMinimumVisibleTimeElapsed = true;
+            maybeHideSplash();
+        }, 1000);
+
+        if (document.readyState === 'complete') {
+            markReady();
+        } else {
+            window.addEventListener('load', markReady, { once: true });
+        }
+
+        
+    })();
+</script></body>
+</html>
